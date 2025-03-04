@@ -1,5 +1,7 @@
 package SistemaVagasEmprego;
 
+import users.Empresa;
+
 import java.util.Scanner;
 
 public class Main {
@@ -21,6 +23,10 @@ public class Main {
             switch (opcao){
 
                 case 1:
+
+                    Empresa emp = new Empresa();
+
+                    emp.publicarVaga();
 
 
                     break;

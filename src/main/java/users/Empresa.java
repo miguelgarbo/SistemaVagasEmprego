@@ -11,25 +11,17 @@ public class Empresa extends Usuario {
 
     Scanner sc = new Scanner(System.in);
 
-    private String setor;
     private String localidade;
     private List<Vaga> vagasPublicadas;
 
 
-    public Empresa(String nome, String email, String telefone, String setor, String localidade) {
+    public Empresa(String nome, String email, String telefone, String localidade) {
         super(nome, email, telefone);
-        this.setor = setor;
         this.localidade = localidade;
         this.vagasPublicadas = new ArrayList<>();
     }
 
-    public String getSetor() {
-        return setor;
-    }
-
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
+    public Empresa(){};
 
     public String getLocalidade() {
         return localidade;
@@ -40,13 +32,16 @@ public class Empresa extends Usuario {
     }
 
 
-    public void publicarVaga(String requisitos, double salario, String beneficios){
+    public void publicarVaga() {
 
         System.out.println("==PUBLICAR VAGA==");
+        System.out.println("Empresa: " + this.getNome());
         System.out.println("Informe o Titulo da Vaga: ");
         String tituloInformado = sc.nextLine();
         int continuar;
         List<String> listaRequisitosInformados = new ArrayList<>();
+        List<String> listaBeneficiosInformados = new ArrayList<>();
+
 
         do {
             System.out.println("Informe os requisitos da vaga: ");
@@ -55,16 +50,48 @@ public class Empresa extends Usuario {
             listaRequisitosInformados.add(requisitoInformado);
             System.out.println("1 - Add Requisito || 2 - Acabou os Requisitos");
             continuar = sc.nextInt();
-
-        }while (continuar != 2);
-
+            sc.nextLine(); // Consome a quebra de linha pendente
 
 
+        } while (continuar != 2);
+
+        do {
+            System.out.println("Informe os Beneficios da vaga: ");
+            String beneficioInformado = sc.nextLine();
+
+            listaBeneficiosInformados.add(beneficioInformado);
+            System.out.println("1 - Add Beneficio || 2 - Acabou os Beneficios");
+            continuar = sc.nextInt();
+
+            sc.nextLine(); // Consome a quebra de linha pendente
+
+        } while (continuar != 2);
 
 
-//parei aqui 01/03
+        System.out.println("Informe o Salário da Vaga: ");
+        double salarioInformado = sc.nextDouble();
 
-  // Vaga vagaNova = new Vaga();
+        sc.nextLine();
 
+        for(ESenioridade senioridade : ESenioridade.values()){
+
+            System.out.println(senioridade);
+        }
+
+        System.out.print("Digite o nível de senioridade: ");
+        String entrada = sc.nextLine().toLowerCase();
+
+
+        try {
+            ESenioridade senioridadeInformada = ESenioridade.valueOf(entrada);
+            System.out.println("Você escolheu: " + senioridadeInformada);
+            Vaga vagaNova = new Vaga(listaRequisitosInformados, salarioInformado, listaBeneficiosInformados, senioridadeInformada, tituloInformado);
+            System.out.println("Vaga Publicada com Sucesso !!");
+
+            } catch(IllegalArgumentException e){
+                System.out.println("Nível de senioridade inválido!");
+            }
+
+
+        }
     }
-}

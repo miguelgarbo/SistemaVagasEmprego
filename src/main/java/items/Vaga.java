@@ -8,13 +8,13 @@ public class Vaga implements IVaga{
     
     private List<String> requisitos;
     private double salario;
-    private String beneficios;
+    private List<String> beneficios;
     private ESenioridade senioridade;
     private Set<Candidato> candidatosInscritos;
     private Empresa empresa;
     private String titulo;
 
-    public Vaga(List<String> requisitos, double salario, String beneficios, ESenioridade senioridade, String titulo) {
+    public Vaga(List<String> requisitos, double salario, List<String> beneficios, ESenioridade senioridade, String titulo) {
         this.requisitos = requisitos;
         this.salario = salario;
         this.beneficios = beneficios;
@@ -46,9 +46,9 @@ public class Vaga implements IVaga{
 
     public void setSalario(double salario) {this.salario = salario;}
 
-    public String getBeneficios() {return beneficios;}
+    public List<String> getBeneficios() {return beneficios;}
 
-    public void setBeneficios(String beneficios) {this.beneficios = beneficios;}
+    public void setBeneficios(List<String> beneficios) {this.beneficios = beneficios;}
 
     @Override
     public void criarVagas(String nome, String experiencia, String areaInteresse) {

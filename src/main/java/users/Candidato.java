@@ -15,6 +15,8 @@ public class Candidato extends Usuario {
         this.formacao = formacao;
     }
 
+    public Candidato(){}
+
 
     public String getExperiencia() {
         return experiencia;

@@ -11,6 +11,7 @@ public abstract class Usuario {
         this.email = email;
         this.telefone = telefone;
     }
+    public Usuario(){}
 
     public String getNome() {
         return nome;
