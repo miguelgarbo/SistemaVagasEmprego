@@ -1,7 +1,8 @@
 package items;
 
-public interface IVaga {
+import users.Candidato;
 
-    void criarVagas(String nome, String experiencia, String areaInteresse);
-    void visualizarVagas();
+interface IVaga {
+    void adicionarCandidato(Candidato candidato);
+    void listarCandidatos();
 }

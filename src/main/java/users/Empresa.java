@@ -1,6 +1,5 @@
 package users;
 
-import items.ESenioridade;
 import items.Vaga;
 
 import java.util.ArrayList;
@@ -8,11 +7,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Empresa extends Usuario {
-
-    Scanner sc = new Scanner(System.in);
-
     private String localidade;
     private List<Vaga> vagasPublicadas;
+    private List<Empresa> listaEmpresas;
+
+
+    public void adicionarEmpresa(Empresa empresa){
+
+        this.listaEmpresas.add(empresa);
+        System.out.println("Empresa Adicionada Com Sucesso !");
+    }
+
+    public List<Empresa> getListaEmpresas() {
+        return listaEmpresas;
+    }
+
+    public void setListaEmpresas(List<Empresa> listaEmpresas) {
+        this.listaEmpresas = listaEmpresas;
+    }
 
 
     public Empresa(String nome, String email, String telefone, String localidade) {
@@ -21,7 +33,36 @@ public class Empresa extends Usuario {
         this.vagasPublicadas = new ArrayList<>();
     }
 
-    public Empresa(){};
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Nome da Empresa: " + getNome());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Telefone: " + getTelefone());
+        System.out.println("Localidade: " + localidade);
+    }
+
+    public Vaga publicarVaga() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("== Publicar Vaga ==");
+
+        System.out.print("Título da Vaga: ");
+        String titulo = sc.nextLine();
+
+        System.out.print("Salário da Vaga: ");
+        double salario = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.print("Requisitos (separe por vírgula): ");
+        String requisitos = sc.nextLine();
+
+        System.out.print("Área de Interesse: ");
+        String areaInteresse = sc.nextLine();
+
+        Vaga novaVaga = new Vaga(titulo, salario, requisitos, areaInteresse);
+        adicionarVagaPublicada(novaVaga);
+
+return novaVaga;
+    }
 
     public String getLocalidade() {
         return localidade;
@@ -31,67 +72,16 @@ public class Empresa extends Usuario {
         this.localidade = localidade;
     }
 
-
-    public void publicarVaga() {
-
-        System.out.println("==PUBLICAR VAGA==");
-        System.out.println("Empresa: " + this.getNome());
-        System.out.println("Informe o Titulo da Vaga: ");
-        String tituloInformado = sc.nextLine();
-        int continuar;
-        List<String> listaRequisitosInformados = new ArrayList<>();
-        List<String> listaBeneficiosInformados = new ArrayList<>();
-
-
-        do {
-            System.out.println("Informe os requisitos da vaga: ");
-            String requisitoInformado = sc.nextLine();
-
-            listaRequisitosInformados.add(requisitoInformado);
-            System.out.println("1 - Add Requisito || 2 - Acabou os Requisitos");
-            continuar = sc.nextInt();
-            sc.nextLine(); // Consome a quebra de linha pendente
-
-
-        } while (continuar != 2);
-
-        do {
-            System.out.println("Informe os Beneficios da vaga: ");
-            String beneficioInformado = sc.nextLine();
-
-            listaBeneficiosInformados.add(beneficioInformado);
-            System.out.println("1 - Add Beneficio || 2 - Acabou os Beneficios");
-            continuar = sc.nextInt();
-
-            sc.nextLine(); // Consome a quebra de linha pendente
-
-        } while (continuar != 2);
-
-
-        System.out.println("Informe o Salário da Vaga: ");
-        double salarioInformado = sc.nextDouble();
-
-        sc.nextLine();
-
-        for(ESenioridade senioridade : ESenioridade.values()){
-
-            System.out.println(senioridade);
-        }
-
-        System.out.print("Digite o nível de senioridade: ");
-        String entrada = sc.nextLine().toLowerCase();
-
-
-        try {
-            ESenioridade senioridadeInformada = ESenioridade.valueOf(entrada);
-            System.out.println("Você escolheu: " + senioridadeInformada);
-            Vaga vagaNova = new Vaga(listaRequisitosInformados, salarioInformado, listaBeneficiosInformados, senioridadeInformada, tituloInformado);
-            System.out.println("Vaga Publicada com Sucesso !!");
-
-            } catch(IllegalArgumentException e){
-                System.out.println("Nível de senioridade inválido!");
-            }
-
-
-        }
+    public void setVagasPublicadas(List<Vaga> vagasPublicadas) {
+        this.vagasPublicadas = vagasPublicadas;
     }
+
+    public List<Vaga> getVagasPublicadas() {
+        return vagasPublicadas;
+    }
+
+    public void adicionarVagaPublicada(Vaga vaga){
+        this.vagasPublicadas.add(vaga);
+        System.out.println("Vaga Publicada Com Sucessooo!");
+    }
+}

@@ -1,62 +1,72 @@
 package items;
+
 import users.Candidato;
-import users.Empresa;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class Vaga implements IVaga{
-    
-    private List<String> requisitos;
-    private double salario;
-    private List<String> beneficios;
-    private ESenioridade senioridade;
-    private Set<Candidato> candidatosInscritos;
-    private Empresa empresa;
+public class Vaga {
     private String titulo;
+    private double salario;
+    private String requisitos;
+    private String areaInteresse;
 
-    public Vaga(List<String> requisitos, double salario, List<String> beneficios, ESenioridade senioridade, String titulo) {
+    public List<Candidato> getCandidatosInscritos() {
+        return candidatosInscritos;
+    }
+
+    public void setCandidatosInscritos(List<Candidato> candidatosInscritos) {
+        this.candidatosInscritos = candidatosInscritos;
+    }
+
+    public void setAreaInteresse(String areaInteresse) {
+        this.areaInteresse = areaInteresse;
+    }
+
+    public void setRequisitos(String requisitos) {
         this.requisitos = requisitos;
+    }
+
+    public void setSalario(double salario) {
         this.salario = salario;
-        this.beneficios = beneficios;
-        this.senioridade = senioridade;
+    }
+
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    public List<String> getRequisitos() {return requisitos;}
+    private List<Candidato> candidatosInscritos;
 
-    public void setRequisitos(List<String> requisitos) {this.requisitos = requisitos;}
+    public Vaga(String titulo, double salario, String requisitos, String areaInteresse) {
+        this.titulo = titulo;
+        this.salario = salario;
+        this.requisitos = requisitos;
+        this.areaInteresse = areaInteresse;
+        this.candidatosInscritos = new ArrayList<>();
+    }
 
-    public ESenioridade getSenioridade() {return senioridade;}
+    public String getTitulo() {
+        return titulo;
+    }
 
-    public void setSenioridade(ESenioridade senioridade) {this.senioridade = senioridade;}
+    public double getSalario() {
+        return salario;
+    }
 
-    public Set<Candidato> getCandidatosInscritos() {return candidatosInscritos;}
+    public String getRequisitos() {
+        return requisitos;
+    }
 
-    public void setCandidatosInscritos(Set<Candidato> candidatosInscritos) {this.candidatosInscritos = candidatosInscritos;}
-    
-    public Empresa getEmpresa() {return empresa;}
+    public String getAreaInteresse() {
+        return areaInteresse;
+    }
 
-    public void setEmpresa(Empresa empresa) {this.empresa = empresa;}
-
-    public String gettitulo() {return titulo;}
-
-    public void settitulo(String titulo) {this.titulo = titulo;}
-
-    public double getSalario() {return salario;}
-
-    public void setSalario(double salario) {this.salario = salario;}
-
-    public List<String> getBeneficios() {return beneficios;}
-
-    public void setBeneficios(List<String> beneficios) {this.beneficios = beneficios;}
-
-    @Override
-    public void criarVagas(String nome, String experiencia, String areaInteresse) {
-
+    public void inscreverCandidato(Candidato candidato) {
+        candidatosInscritos.add(candidato);
     }
 
     @Override
-    public void visualizarVagas() {
-
+    public String toString() {
+        return "Título: " + titulo + "\nSalário: R$ " + salario + "\nRequisitos: " + requisitos + "\nÁrea de Interesse: " + areaInteresse;
     }
 }
