@@ -8,33 +8,27 @@ import java.util.Scanner;
 
 
 public class Candidato extends Usuario {
-    private String areaInteresse;
+    private String descricao;
     private String formacao;
-    private static List<Candidato> listaCandidatos = new ArrayList<>();
 
 
     Scanner sc = new Scanner(System.in);
 
-    public Candidato(String nome, String email, String telefone, String areaInteresse, String formacao) {
+    public Candidato(String nome, String email, String telefone, String descricao, String formacao) {
         super(nome, email, telefone);
-        this.areaInteresse = areaInteresse;
+        this.descricao = descricao;
         this.formacao = formacao;
 
     }
 
+    public Candidato(){}
 
-    public void adicionarCandidato(Candidato candidato){
-
-        this.listaCandidatos.add(candidato);
-        System.out.println("Candidato Adicionado Com Sucesso !");
+    public String getdescricao() {
+        return descricao;
     }
 
-    public String getAreaInteresse() {
-        return areaInteresse;
-    }
-
-    public void setAreaInteresse(String areaInteresse) {
-        this.areaInteresse = areaInteresse;
+    public void setdescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getFormacao() {
@@ -45,21 +39,14 @@ public class Candidato extends Usuario {
         this.formacao = formacao;
     }
 
-    public List<Candidato> getListaCandidatos() {
-        return listaCandidatos;
-    }
-
-    public void setListaCandidatos(List<Candidato> listaCandidatos) {
-        this.listaCandidatos = listaCandidatos;
-    }
 
     @Override
     public void exibirInformacoes() {
-        System.out.println("Nome: " + getNome());
-        System.out.println("Email: " + getEmail());
-        System.out.println("Telefone: " + getTelefone());
-        System.out.println("Área de Interesse: " + areaInteresse);
-        System.out.println("Formação: " + formacao);
+        System.out.println("Nome: " + this.getNome());
+        System.out.println("Email: " + this.getEmail());
+        System.out.println("Telefone: " + this.getTelefone());
+        System.out.println("Descrição: " + this.getdescricao());
+        System.out.println("Formação: " +this.getFormacao());
     }
 
     public void visualizarVagas(List<Vaga> vagasPublicadas) {
@@ -68,7 +55,8 @@ public class Candidato extends Usuario {
         } else {
             System.out.println("== Vagas Disponíveis == ");
             for (int i = 0; i < vagasPublicadas.size(); i++) {
-                System.out.println((i + 1) + " ||" + vagasPublicadas.get(i));
+                System.out.print((i + 1) + " || ");
+                vagasPublicadas.get(i).exibirInformaçoes();
             }
         }
     }
@@ -91,8 +79,8 @@ public class Candidato extends Usuario {
         String formacaoCandidato = sc.nextLine();
 
         Candidato candidatoNovo = new Candidato(nomeCandidato, emailCandidato, telefoneCandidato, areaCandidato, formacaoCandidato);
-        this.listaCandidatos.add(candidatoNovo);
         return candidatoNovo;
+        //essa funçao retorna o candidato novo e eu terei q adicionar ele na lista de incritos da vaga
     }
 
     public void inscreverVaga(List<Vaga> vagasPublicadas, int indice) {

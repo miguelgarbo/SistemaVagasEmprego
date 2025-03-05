@@ -1,7 +1,9 @@
 package items;
 
 import users.Candidato;
+import users.Empresa;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,18 +11,29 @@ public class Vaga {
     private String titulo;
     private double salario;
     private String requisitos;
-    private String areaInteresse;
+    private String descricao;
+    private Empresa nomeEmpresa;
+    private List<Candidato> candidatosInscritos = new ArrayList<>();
+
+    public Empresa getNomeEmpresa() {
+        return nomeEmpresa;
+    }
+
+    public void setNomeEmpresa(Empresa nomeEmpresa) {
+        this.nomeEmpresa = nomeEmpresa;
+    }
 
     public List<Candidato> getCandidatosInscritos() {
         return candidatosInscritos;
     }
 
+
     public void setCandidatosInscritos(List<Candidato> candidatosInscritos) {
         this.candidatosInscritos = candidatosInscritos;
     }
 
-    public void setAreaInteresse(String areaInteresse) {
-        this.areaInteresse = areaInteresse;
+    public void setdescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void setRequisitos(String requisitos) {
@@ -34,15 +47,12 @@ public class Vaga {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
-    private List<Candidato> candidatosInscritos;
-
-    public Vaga(String titulo, double salario, String requisitos, String areaInteresse) {
+    public Vaga(String titulo, double salario, String requisitos, String descricao, Empresa nomeEmpresa) {
         this.titulo = titulo;
         this.salario = salario;
         this.requisitos = requisitos;
-        this.areaInteresse = areaInteresse;
-        this.candidatosInscritos = new ArrayList<>();
+        this.descricao = descricao;
+        this.nomeEmpresa = nomeEmpresa;
     }
 
     public String getTitulo() {
@@ -57,16 +67,22 @@ public class Vaga {
         return requisitos;
     }
 
-    public String getAreaInteresse() {
-        return areaInteresse;
+    public String getdescricao() {
+        return descricao;
     }
 
     public void inscreverCandidato(Candidato candidato) {
-        candidatosInscritos.add(candidato);
+        this.candidatosInscritos.add(candidato);
     }
 
-    @Override
-    public String toString() {
-        return "Título: " + titulo + "\nSalário: R$ " + salario + "\nRequisitos: " + requisitos + "\nÁrea de Interesse: " + areaInteresse;
+    public void exibirInformaçoes() {
+
+        System.out.println("Título: " + titulo + "\nSalário: R$ " + salario + "\nRequisitos: " + requisitos + "\nDescrição: " + this.getdescricao()+ "\nEmpresa: "+ this.nomeEmpresa.getNome());
+        for (int i = 0;i<candidatosInscritos.size();i++){
+
+            System.out.println("Candidatos Incritos: ");
+            System.out.println("Indice: "+ (i+1));
+            candidatosInscritos.get(i).exibirInformacoes();
+        }
     }
 }

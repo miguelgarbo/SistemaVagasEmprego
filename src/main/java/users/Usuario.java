@@ -11,6 +11,8 @@ public abstract class Usuario {
         this.telefone = telefone;
     }
 
+    public Usuario(){}
+
     public String getNome() {
         return nome;
     }
