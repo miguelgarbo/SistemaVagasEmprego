@@ -1,5 +1,6 @@
 package users;
 
+import items.EStatusVaga;
 import items.Vaga;
 
 import java.util.ArrayList;
@@ -34,6 +35,12 @@ public class Empresa extends Usuario {
         this.vagasPublicadas = new ArrayList<>();
         this.listaEmpresas = new ArrayList<>();
     }
+
+    public Empresa() {
+        this.listaEmpresas = new ArrayList<>();
+        this.vagasPublicadas = new ArrayList<>(); // Agora a lista de vagas também é inicializada
+    }
+
 
     @Override
     public void exibirInformacoes() {
@@ -91,7 +98,7 @@ public class Empresa extends Usuario {
         System.out.print("Descrição: ");
         String descricao = sc.nextLine();
 
-        Vaga novaVaga = new Vaga(titulo, salario, requisitos, descricao, empresaSelecionada);
+        Vaga novaVaga = new Vaga(titulo, salario, requisitos, descricao, empresaSelecionada, EStatusVaga.ATIVA);
         adicionarVagaPublicada(novaVaga);
         return novaVaga;
     }
@@ -116,6 +123,23 @@ public class Empresa extends Usuario {
         this.vagasPublicadas.add(vaga);
         System.out.println("Vaga Publicada Com Sucessooo!");
     }
+
+    public void selecionarCandidatoParaVaga(int indice, Vaga vagaescolhida){
+
+        List<Candidato> listaCandidatosVaga = vagaescolhida.getCandidatosInscritos();
+        if(indice >=1 && indice<= listaCandidatosVaga.size()){
+
+            Candidato candidatoEscolhido = listaCandidatosVaga.get(indice-1);
+            System.out.println("Candidato Efetivado Para a Vaga: "+ candidatoEscolhido.getNome());
+            vagaescolhida.setStatusVaga(EStatusVaga.INATIVA);
+            System.out.println("Status da Vaga: "+ vagaescolhida.getStatusVaga());
+
+        }else {
+
+            System.out.println("Esse Indice Não corresponde a algum de nossos candidatos inscritos.");
+        }
+    }
+
 
 
     public Empresa cadastraEmpresaNova(){
@@ -143,7 +167,7 @@ public class Empresa extends Usuario {
 
         this.listaEmpresas.add(empresaNova);
 
-        System.out.println("Empresa Nova, Adicionada A lista de Empresas Com Sucesso!! ");
+        System.out.println(" Adicionada A lista de Empresas Com Sucesso!! ");
     }
 
 }

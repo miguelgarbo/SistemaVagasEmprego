@@ -3,7 +3,6 @@ package items;
 import users.Candidato;
 import users.Empresa;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,26 @@ public class Vaga {
     private String descricao;
     private Empresa nomeEmpresa;
     private List<Candidato> candidatosInscritos = new ArrayList<>();
+    private EStatusVaga statusVaga;
+
+    public EStatusVaga getStatusVaga() {
+        return statusVaga;
+    }
+
+    public void setStatusVaga(EStatusVaga statusVaga) {
+        this.statusVaga = statusVaga;
+    }
+
+    public Vaga(){};
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
 
     public Empresa getNomeEmpresa() {
         return nomeEmpresa;
@@ -47,12 +66,13 @@ public class Vaga {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public Vaga(String titulo, double salario, String requisitos, String descricao, Empresa nomeEmpresa) {
+    public Vaga(String titulo, double salario, String requisitos, String descricao, Empresa nomeEmpresa, EStatusVaga statusVaga) {
         this.titulo = titulo;
         this.salario = salario;
         this.requisitos = requisitos;
         this.descricao = descricao;
         this.nomeEmpresa = nomeEmpresa;
+        this.statusVaga = statusVaga;
     }
 
     public String getTitulo() {
@@ -77,7 +97,7 @@ public class Vaga {
 
     public void exibirInformaçoes() {
 
-        System.out.println("Título: " + titulo + "\nSalário: R$ " + salario + "\nRequisitos: " + requisitos + "\nDescrição: " + this.getdescricao()+ "\nEmpresa: "+ this.nomeEmpresa.getNome());
+        System.out.println("Título: " + titulo + "\nSalário: R$ " + salario + "\nRequisitos: " + requisitos + "\nDescrição: " + this.getdescricao()+ "\nEmpresa: "+ this.nomeEmpresa.getNome()+ "\nStatus Vaga: "+ this.getStatusVaga());
         for (int i = 0;i<candidatosInscritos.size();i++){
 
             System.out.println("Candidatos Incritos: ");

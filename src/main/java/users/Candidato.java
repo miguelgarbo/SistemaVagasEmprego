@@ -88,7 +88,7 @@ public class Candidato extends Usuario {
         if (indice >= 1 && indice <= vagasPublicadas.size()) {
             Vaga vaga = vagasPublicadas.get(indice - 1);
 
-           Candidato candidatoNovo = formularioCandidato();
+           Candidato candidatoNovo = formularioCandidato();// aqui retorna o candidato novo
 
            vaga.inscreverCandidato(candidatoNovo);
 
