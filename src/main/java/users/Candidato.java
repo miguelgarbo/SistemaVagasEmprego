@@ -79,14 +79,19 @@ public class Candidato extends Usuario {
         System.out.println("Telefone: " + this.getTelefone());
         System.out.println("Descrição: " + this.getdescricao());
         System.out.println("Formação: " + this.getFormacao());
-        System.out.println("Vagas Inscritas por: " + this.getNome());
 
-        for (Vaga vaga : this.getlistaVagasQueOCandidatoSeIncreveu()) {
+        if(this.getlistaVagasQueOCandidatoSeIncreveu().isEmpty()){
 
-            System.out.println("Vaga(s): " + vaga.getTitulo() + " ");
+        }else {
+            System.out.println("Vagas Inscritas por: " + this.getNome());
+            for (Vaga vaga : this.getlistaVagasQueOCandidatoSeIncreveu()) {
 
+                System.out.println("Vaga(s): " + vaga.getTitulo() + " ");
+
+            }
+            System.out.println("//////////////////////////////\n");
         }
-        System.out.println("//////////////////////////////\n");
+
     }
 
     public boolean visualizarVagas(List<Vaga> vagasPublicadas) {
@@ -106,7 +111,7 @@ public class Candidato extends Usuario {
 
     public Candidato formularioCandidato() {
 
-        System.out.println("Informe Seu Nome");
+        System.out.println("Informe Seu Nome: ");
         String nomeCandidato = sc.nextLine();
 
         System.out.println("Email: ");

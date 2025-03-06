@@ -54,6 +54,13 @@ public class Empresa extends Usuario {
         System.out.println("Email: " + this.getEmail());
         System.out.println("Telefone: " + this.getTelefone());
         System.out.println("Localidade: " + this.getLocalidade());
+        System.out.println("Vagas Publicadas: ");
+        for(int i = 0;i<this.vagasPublicadas.size();i++){
+
+            System.out.println("Vaga: "+ (i+1));
+            System.out.println(vagasPublicadas.get(i).getTitulo()+" , ");
+
+        }
     }
 
     public Empresa escolherEmpresaParaPublicarVaga() {
@@ -151,6 +158,7 @@ public class Empresa extends Usuario {
     public Empresa cadastraEmpresaNova(){
 
         System.out.println("== CADASTRO DE EMPRESAS== ");
+        sc.nextLine();
 
         System.out.println("Informe o Nome da Empresa: ");
         String nomeEmpresaInformado = sc.nextLine();
