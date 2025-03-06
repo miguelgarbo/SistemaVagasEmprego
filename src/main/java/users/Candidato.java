@@ -12,6 +12,7 @@ public class Candidato extends Usuario {
     private String formacao;
     private List<Candidato> listaCandidatosCadastrados = new ArrayList<>();
 
+
     public String getDescricao() {
         return descricao;
     }
@@ -74,6 +75,7 @@ public class Candidato extends Usuario {
             for (int i = 0; i < vagasPublicadas.size(); i++) {
                 System.out.print((i + 1) + " || ");
                 vagasPublicadas.get(i).exibirInformaçoes();
+                System.out.println("///////////////////////////\n");
             }
         }
     }
@@ -106,18 +108,63 @@ public class Candidato extends Usuario {
     }
 
 
-    public void inscreverVaga(List<Vaga> vagasPublicadas, int indice) {
+    public Candidato cadastradoOuNao(){
 
-        if (indice >= 1 && indice <= vagasPublicadas.size()) {
-            Vaga vaga = vagasPublicadas.get(indice - 1);
+            System.out.println("Candidatos Cadastrados:");
 
-           Candidato candidatoNovo = formularioCandidato();// aqui retorna o candidato novo
+            for (int i = 0;i<this.getListaCandidatosCadastrados().size();i++){
 
-           vaga.inscreverCandidato(candidatoNovo);
+                System.out.println("Indice: "+(i+1));
+                getListaCandidatosCadastrados().get(i).exibirInformacoes();
+            }
 
-            System.out.println("Candidato inscrito com sucesso na vaga: " + vaga.getTitulo());
-        } else {
-            System.out.println("Índice de vaga inválido.");
+            System.out.println("Informe o seu Indice de Candidato Cadastrado: ");
+            int indiceCandidatoCadastrado = sc.nextInt();
+
+            if (indiceCandidatoCadastrado >= 1 && indiceCandidatoCadastrado<= this.getListaCandidatosCadastrados().size()){
+
+                Candidato candidatoSelecionado = this.getListaCandidatosCadastrados().get(indiceCandidatoCadastrado-1);
+                System.out.println("Candidato Selecionado: "+ candidatoSelecionado.getNome());
+                return candidatoSelecionado;
+
+            }else {
+
+                System.out.println("Esse indice esta errado! ");
+            }
+
+        return null;
+    }
+
+    public void inscreverVaga(List<Vaga> vagasPublicadas, int indice, boolean isCadastrado) {
+
+        if (isCadastrado==false){
+            if (indice >= 1 && indice <= vagasPublicadas.size()) {
+                Vaga vaga = vagasPublicadas.get(indice - 1);
+
+                Candidato candidatoNovo = formularioCandidato();// aqui retorna o candidato novo
+
+                vaga.inscreverCandidato(candidatoNovo);
+
+                System.out.println("Candidato inscrito com sucesso na vaga: " + vaga.getTitulo());
+            } else {
+                System.out.println("Índice de vaga inválido.");
+            }
+
+        }else {
+
+            if (indice >= 1 && indice <= vagasPublicadas.size()) {
+                Vaga vaga = vagasPublicadas.get(indice - 1);
+
+                Candidato candidatoNovo = cadastradoOuNao();// aqui retorna o candidato novo
+
+                vaga.inscreverCandidato(candidatoNovo);
+
+                System.out.println("Candidato inscrito com sucesso na vaga: " + vaga.getTitulo());
+            } else {
+                System.out.println("Índice de vaga inválido.");
+            }
         }
+
+
     }
 }

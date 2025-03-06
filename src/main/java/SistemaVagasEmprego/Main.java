@@ -43,7 +43,18 @@ public class Main {
                         candidato.visualizarVagas(empresa.getVagasPublicadas());// printa as vagas
                         System.out.print("Informe o índice da vaga para se inscrever: "); //pega o indice para selecionar a vaga escolhida
                         int indice = sc.nextInt();
-                        candidato.inscreverVaga(empresa.getVagasPublicadas(), indice);
+
+                        System.out.println("1 - Ja tenho Cadastro no Sistema || 2 - Preencher o Formulario Apenas Para essa Vaga");
+                        int opcaoUsuario = sc.nextInt();
+
+                        if (opcaoUsuario ==1){
+
+                            candidato.inscreverVaga(empresa.getVagasPublicadas(), indice, true);
+
+                        } else if (opcaoUsuario ==2) {
+
+                            candidato.inscreverVaga(empresa.getVagasPublicadas(), indice, false);
+                        }
                         break;
 
                     case 3:
