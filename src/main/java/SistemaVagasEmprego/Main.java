@@ -11,75 +11,117 @@ import users.Empresa;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int opcao;
+        int opcaoMenu;
 
         Empresa empresa = new Empresa();
         Candidato candidato = new Candidato();
         Vaga vaga = new Vaga();
+
         do {
-            System.out.println("\n== Menu ==");
-            System.out.println("0 - Cadastro de Empresas");
-            System.out.println("1 - Visualizar Vagas");
-            System.out.println("2 - Inscrever-se em uma Vaga");
-            System.out.println("3 - Publicar Vaga");
-            System.out.println("4 - Sair");
+            System.out.println("==MENU==");
+            System.out.println("1 - Entrar Como Candidato");
+            System.out.println("2 - Entrar Como Empresa");
+            System.out.println("3 - Sair");
+            opcaoMenu = sc.nextInt();
 
-            opcao = sc.nextInt();
-            sc.nextLine();
+            if (opcaoMenu ==1){
+                System.out.println("==MENU CANDIDATO==");
+                System.out.println("1 - Visualizar Vagas Disponiveis");
+                System.out.println("2 - Inscrever-se em uma Vaga");
+                System.out.println("3 - Se Cadastrar como Candidato");
+                System.out.println("4 - Voltar");
+                int opcaoCandidato = sc.nextInt();
 
-            switch (opcao) {
+                switch (opcaoCandidato){
 
-                case 0 :
-                  Empresa empresaCadastrada =  empresa.cadastraEmpresaNova();
-                  empresa.adicionarEmpresaLista(empresaCadastrada);
+                    case 1:
 
-                    break;
+                        candidato.visualizarVagas(empresa.getVagasPublicadas());
+                        break;
+                    case 2:
 
-                case 1:
-                    candidato.visualizarVagas(empresa.getVagasPublicadas());
-                    System.out.println("1 - Selecionar Vaga || 2 - Voltar...");
-                    int umDois = sc.nextInt();
-                    if (umDois == 1){
+                        candidato.visualizarVagas(empresa.getVagasPublicadas());// printa as vagas
+                        System.out.print("Informe o índice da vaga para se inscrever: "); //pega o indice para selecionar a vaga escolhida
+                        int indice = sc.nextInt();
+                        candidato.inscreverVaga(empresa.getVagasPublicadas(), indice);
+                        break;
 
-                        System.out.println("Informe o Indice da Vaga: ");
-                        int indiceVagaInformada = sc.nextInt();
+                    case 3:
 
-                        if (indiceVagaInformada >=1 && indiceVagaInformada<= empresa.getVagasPublicadas().size()){
+                        Candidato candidatoCadastrado = candidato.formularioCandidato();
+                        candidato.salvarCandidatoSistema(candidatoCadastrado);
 
-                            Vaga vagaSelecionada = empresa.getVagasPublicadas().get(indiceVagaInformada-1);
-                            System.out.println("Vaga Selecionada: "+ vagaSelecionada.getTitulo() +"|| Empresa"+ vagaSelecionada.getNomeEmpresa().getNome());
+                        break;
 
-                            System.out.println("Informe o indice do Candidato Escolhido: ");
-                            int indiceCandidato = sc.nextInt();
+                    case 4:
 
-                            empresa.selecionarCandidatoParaVaga(indiceCandidato,vagaSelecionada);
+                        System.out.println("Voltando..");
+                        break;
+
+                    default:
+
+                        System.out.println("Opcao Invalida");
+                }
+
+
+            } else if (opcaoMenu==2) {
+
+                System.out.println("==MENU EMPRESA==");
+                System.out.println("1 - Cadastrar Empresas");
+                System.out.println("2 - Visualizar Vagas");
+                System.out.println("3 - Publicar Vaga");
+                System.out.println("4 - Sair");
+                int opcaoEmpresa = sc.nextInt();
+
+                switch (opcaoEmpresa) {
+
+                    case 1:
+                        Empresa empresaCadastrada = empresa.cadastraEmpresaNova();
+                        empresa.adicionarEmpresaLista(empresaCadastrada);
+                        break;
+
+                    case 2:
+                        candidato.visualizarVagas(empresa.getVagasPublicadas());
+                        System.out.println("1 - Selecionar Vaga || 2 - Voltar...");
+                        int umDois = sc.nextInt();
+                        if (umDois == 1){
+
+                            System.out.println("Informe o Indice da Vaga: ");
+                            int indiceVagaInformada = sc.nextInt();
+
+                            if (indiceVagaInformada >=1 && indiceVagaInformada<= empresa.getVagasPublicadas().size()){
+
+                                Vaga vagaSelecionada = empresa.getVagasPublicadas().get(indiceVagaInformada-1);
+                                System.out.println("Vaga Selecionada: "+ vagaSelecionada.getTitulo() +"|| Empresa"+ vagaSelecionada.getNomeEmpresa().getNome());
+
+                                System.out.println("Informe o indice do Candidato Escolhido: ");
+                                int indiceCandidato = sc.nextInt();
+
+                                empresa.selecionarCandidatoParaVaga(indiceCandidato,vagaSelecionada);
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 2:
+                    case 3:
 
-                    candidato.visualizarVagas(empresa.getVagasPublicadas());// printa as vagas
-                    System.out.print("Informe o índice da vaga para se inscrever: "); //pega o indice para selecionar a vaga escolhida
-                    int indice = sc.nextInt();
-                    candidato.inscreverVaga(empresa.getVagasPublicadas(), indice);
-                    break;
+                        Empresa empresaSelecionada = empresa.escolherEmpresaParaPublicarVaga();
+                        empresa.publicarVaga(empresaSelecionada);
 
-                case 3:
+                        break;
 
-                    Empresa empresaSelecionada = empresa.escolherEmpresaParaPublicarVaga();
-                    empresa.publicarVaga(empresaSelecionada);
+                    case 4:
 
-                    break;
+                        System.out.println("Voltando");
+                        break;
 
-                case 4:
-                    System.out.println("Saindo...");
-                    break;
+                    default:
 
-                default:
-                    System.out.println("Opção inválida.");
+                        System.out.println("Opcao Invalida");
+
+                }
+
             }
 
-    }while(opcao !=4);
+    }while(opcaoMenu !=3);
 }
 }

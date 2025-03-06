@@ -6,7 +6,7 @@ import users.Empresa;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vaga {
+public class Vaga implements IVaga{
     private String titulo;
     private double salario;
     private String requisitos;

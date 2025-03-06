@@ -10,7 +10,23 @@ import java.util.Scanner;
 public class Candidato extends Usuario {
     private String descricao;
     private String formacao;
+    private List<Candidato> listaCandidatosCadastrados = new ArrayList<>();
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public List<Candidato> getListaCandidatosCadastrados() {
+        return listaCandidatosCadastrados;
+    }
+
+    public void setListaCandidatosCadastrados(List<Candidato> listaCandidatosCadastrados) {
+        this.listaCandidatosCadastrados = listaCandidatosCadastrados;
+    }
 
     Scanner sc = new Scanner(System.in);
 
@@ -47,6 +63,7 @@ public class Candidato extends Usuario {
         System.out.println("Telefone: " + this.getTelefone());
         System.out.println("Descrição: " + this.getdescricao());
         System.out.println("Formação: " +this.getFormacao());
+        System.out.println("//////////////////////////////\n");
     }
 
     public void visualizarVagas(List<Vaga> vagasPublicadas) {
@@ -80,8 +97,14 @@ public class Candidato extends Usuario {
 
         Candidato candidatoNovo = new Candidato(nomeCandidato, emailCandidato, telefoneCandidato, areaCandidato, formacaoCandidato);
         return candidatoNovo;
-        //essa funçao retorna o candidato novo e eu terei q adicionar ele na lista de incritos da vaga
     }
+
+    public void  salvarCandidatoSistema(Candidato candidatoCadastrado){
+
+        this.getListaCandidatosCadastrados().add(candidatoCadastrado);
+        System.out.println("Candidato Cadastrado No Sistema Com Sucesso");
+    }
+
 
     public void inscreverVaga(List<Vaga> vagasPublicadas, int indice) {
 
