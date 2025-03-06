@@ -20,6 +20,12 @@ public class Empresa extends Usuario {
         System.out.println("Empresa Adicionada Com Sucesso !");
     }
 
+    public Empresa empresaCadastradaDefault(){
+
+        Empresa empresaCadastrada = new Empresa("Samsung","comercial@samsung.com", "11 982383284", "sao paulo - sp");
+        return empresaCadastrada;
+    }
+
     public List<Empresa> getListaEmpresas() {
         return listaEmpresas;
     }
@@ -168,6 +174,17 @@ public class Empresa extends Usuario {
         this.listaEmpresas.add(empresaNova);
 
         System.out.println(" Adicionada A lista de Empresas Com Sucesso!! ");
+    }
+
+    public void visualizarEmpresasCadastradas(){
+
+        int i = 0;
+        for (Empresa empresa : this.getListaEmpresas()){
+
+            System.out.println("EMPRESA:"+ (i+1));
+            this.getListaEmpresas().get(i).exibirInformacoes();
+            i++;
+        }
     }
 
 }

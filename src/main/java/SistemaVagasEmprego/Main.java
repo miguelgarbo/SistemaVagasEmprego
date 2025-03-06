@@ -1,9 +1,5 @@
 package SistemaVagasEmprego;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import items.EStatusVaga;
 import items.Vaga;
 import users.Candidato;
 import users.Empresa;
@@ -16,6 +12,7 @@ public class Main {
         Empresa empresa = new Empresa();
         Candidato candidato = new Candidato();
         Vaga vaga = new Vaga();
+        empresa.adicionarEmpresa(empresa.empresaCadastradaDefault()); // só pra comecar com uma empresa cadastrada já
 
         do {
             System.out.println("==MENU==");
@@ -29,7 +26,8 @@ public class Main {
                 System.out.println("1 - Visualizar Vagas Disponiveis");
                 System.out.println("2 - Inscrever-se em uma Vaga");
                 System.out.println("3 - Se Cadastrar como Candidato");
-                System.out.println("4 - Voltar");
+                System.out.println("4 - Visualizar Candidatos Cadastrados");
+                System.out.println("5 - Voltar");
                 int opcaoCandidato = sc.nextInt();
 
                 switch (opcaoCandidato){
@@ -37,10 +35,14 @@ public class Main {
                     case 1:
 
                         candidato.visualizarVagas(empresa.getVagasPublicadas());
+
                         break;
                     case 2:
 
-                        candidato.visualizarVagas(empresa.getVagasPublicadas());// printa as vagas
+                        if (!candidato.visualizarVagas(empresa.getVagasPublicadas())) {
+                            break; // Sai do case se não houver vagas
+                        }
+
                         System.out.print("Informe o índice da vaga para se inscrever: "); //pega o indice para selecionar a vaga escolhida
                         int indice = sc.nextInt();
 
@@ -66,6 +68,16 @@ public class Main {
 
                     case 4:
 
+                        if(!candidato.visualizarCandidatosCadastradosSistema()){
+                            break;
+                        }else {
+                            candidato.visualizarCandidatosCadastradosSistema();
+                        }
+
+                        break;
+
+                    case 5:
+
                         System.out.println("Voltando..");
                         break;
 
@@ -81,7 +93,8 @@ public class Main {
                 System.out.println("1 - Cadastrar Empresas");
                 System.out.println("2 - Visualizar Vagas");
                 System.out.println("3 - Publicar Vaga");
-                System.out.println("4 - Sair");
+                System.out.println("4 - Visualizar Empresas Cadastradas");
+                System.out.println("5 - Voltar");
                 int opcaoEmpresa = sc.nextInt();
 
                 switch (opcaoEmpresa) {
@@ -121,6 +134,10 @@ public class Main {
                         break;
 
                     case 4:
+                        empresa.visualizarEmpresasCadastradas();
+                        break;
+
+                    case 5:
 
                         System.out.println("Voltando");
                         break;
