@@ -3,6 +3,7 @@ package users;
 import items.EStatusVaga;
 import items.Vaga;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -128,7 +129,9 @@ public class Empresa extends Usuario {
                 System.out.println("Nenhuma vaga publicada por esta empresa.");
             } else {
                 System.out.println("Vagas publicadas por " + empresaSelected.getNome() + ":");
-                for (Vaga vaga : vagasDaEmpresa) {
+                for (int i = 0;i < vagasDaEmpresa.size();i++) {
+                    Vaga vaga = vagasDaEmpresa.get(i);
+                    System.out.println("Índice || " + (i+1));
                     System.out.println("- " + vaga.getTitulo() + ": " + vaga.getDescricao());
                 }
             }
@@ -153,8 +156,33 @@ public class Empresa extends Usuario {
     }
 
 
+    public void editarVagaPorIndice(Empresa empresaSelected, int indice) {
+        if (empresaSelected != null) {
+            List<Vaga> vagasDaEmpresa = empresaSelected.getVagasPublicadas();
+            if (indice >= 0 && indice < vagasDaEmpresa.size()) {
+                Vaga vaga = vagasDaEmpresa.get(indice);
 
-    public Vaga publicarVaga(Empresa empresaSelecionada) {
+                System.out.println("Editando a vaga: " + vaga.getTitulo() + " - " + vaga.getDescricao());
+                sc.nextLine();//para desbugar.
+                System.out.print("Novo título: ");
+                String novoTitulo = sc.nextLine();
+                System.out.print("Nova descrição: ");
+                String novaDescricao = sc.nextLine();
+
+                vaga.setTitulo(novoTitulo);
+                vaga.setDescricao(novaDescricao);
+
+                System.out.println("Vaga editada com sucesso!");
+            } else {
+                System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+            }
+        } else {
+            System.out.println("Empresa selecionada é inválida.");
+        }
+    }
+
+
+    public void publicarVaga(Empresa empresaSelecionada) {
         Scanner sc = new Scanner(System.in);
         System.out.println("== Publicar Vaga ==");
 
@@ -174,7 +202,6 @@ public class Empresa extends Usuario {
         Vaga novaVaga = new Vaga(titulo, salario, requisitos, descricao, empresaSelecionada, EStatusVaga.ATIVA);
         adicionarVagaPublicada(novaVaga);
         adicionarVagaPublicadaPorEmpresa(novaVaga,empresaSelecionada);
-        return novaVaga;
     }
 
     public String getLocalidade() {

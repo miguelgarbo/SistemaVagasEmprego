@@ -1,6 +1,7 @@
 package users;
 
 import items.Vaga;
+import users.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,9 +81,9 @@ public class Candidato extends Usuario {
         System.out.println("Descrição: " + this.getdescricao());
         System.out.println("Formação: " + this.getFormacao());
 
-        if(this.getlistaVagasQueOCandidatoSeIncreveu().isEmpty()){
+        if (this.getlistaVagasQueOCandidatoSeIncreveu().isEmpty()) {
 
-        }else {
+        } else {
             System.out.println("Vagas Inscritas por: " + this.getNome());
             for (Vaga vaga : this.getlistaVagasQueOCandidatoSeIncreveu()) {
 
@@ -210,6 +211,35 @@ public class Candidato extends Usuario {
                 System.out.println("/////////////////////////////////////////////");
             }
             return true;
+        }
+    }
+    public void editarCandidatoPorIndice ( int indice) {
+        if (indice >= 0 && indice < listaCandidatosCadastrados.size()) {
+            Candidato candidatoSelecionado = listaCandidatosCadastrados.get(indice);
+            System.out.println("Editando cadastro do candidato: " + candidatoSelecionado.getNome());
+
+            Scanner sc = new Scanner(System.in);
+
+            System.out.print("Novo nome: ");
+            String novoNome = sc.nextLine();
+            System.out.print("Novo e-mail: ");
+            String novoEmail = sc.nextLine();
+            System.out.print("Novo telefone: ");
+            String novoTelefone = sc.nextLine();
+            System.out.print("Nova descrição: ");
+            String novaDescricao = sc.nextLine();
+            System.out.print("Nova formação: ");
+            String novaFormacao = sc.nextLine();
+
+            candidatoSelecionado.setNome(novoNome);
+            candidatoSelecionado.setEmail(novoEmail);
+            candidatoSelecionado.setTelefone(novoTelefone);
+            candidatoSelecionado.setDescricao(novaDescricao);
+            candidatoSelecionado.setFormacao(novaFormacao);
+
+            System.out.println("Cadastro atualizado com sucesso!");
+        } else {
+            System.out.println("Índice inválido. Por favor, selecione um índice válido.");
         }
     }
 }

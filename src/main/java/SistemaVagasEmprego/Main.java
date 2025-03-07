@@ -27,6 +27,7 @@ public class Main {
                 System.out.println("2 - Inscrever-se em uma Vaga");
                 System.out.println("3 - Se Cadastrar como Candidato");
                 System.out.println("4 - Visualizar Candidatos Cadastrados");
+                System.out.println("5 - Editar Candidato Cadastrado");
                 System.out.println("6 - Voltar");
                 int opcaoCandidato = sc.nextInt();
 
@@ -77,10 +78,26 @@ public class Main {
                         break;
 
                     case 5:
+                        if (!candidato.visualizarCandidatosCadastradosSistema()) {
+                            System.out.println("Não há candidatos cadastrados!");
+                            break; // Sai do case se não houver candidatos
+                        }
 
+                        System.out.println("1 - Editar Cadastro de Candidato || 2 - Voltar...");
+                        int opcaoEditarCandidato = sc.nextInt();
+                        sc.nextLine(); // Consumir a nova linha pendente
+
+                        if (opcaoEditarCandidato == 1) {
+                            System.out.print("Informe o índice do candidato que deseja editar: ");
+                            int indiceCandidato = sc.nextInt();
+                            sc.nextLine(); // Consumir a nova linha pendente
+
+                            candidato.editarCandidatoPorIndice(indiceCandidato - 1); // Subtrair 1 para ajustar o índice
+                        }
+                        break;
+                    case 6:
                         System.out.println("Voltando..");
                         break;
-
                     default:
 
                         System.out.println("Opcao Invalida");
@@ -142,8 +159,9 @@ public class Main {
                         empresaSelected.visualizarVagasPorEmpresaSelecionada(empresaSelected);
                         System.out.println("Digite o Índice da Vaga Selecionada:");
                         int vagaSelected = sc.nextInt();
+                        sc.nextLine();
                         Vaga vagaSelecionada = empresaSelected.selecionarVagaPorIndice(empresaSelected,vagaSelected);
-
+                        empresa.editarVagaPorIndice(empresaSelected,vagaSelected);
                         break;
 
                     case 6:
@@ -158,7 +176,6 @@ public class Main {
                 }
 
             }
-
     }while(opcaoMenu !=3);
 }
 }
