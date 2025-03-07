@@ -27,7 +27,7 @@ public class Main {
                 System.out.println("2 - Inscrever-se em uma Vaga");
                 System.out.println("3 - Se Cadastrar como Candidato");
                 System.out.println("4 - Visualizar Candidatos Cadastrados");
-                System.out.println("5 - Voltar");
+                System.out.println("6 - Voltar");
                 int opcaoCandidato = sc.nextInt();
 
                 switch (opcaoCandidato){
@@ -94,7 +94,8 @@ public class Main {
                 System.out.println("2 - Visualizar Vagas");
                 System.out.println("3 - Publicar Vaga");
                 System.out.println("4 - Visualizar Empresas Cadastradas");
-                System.out.println("5 - Voltar");
+                System.out.println("5 - Edição de Vagas de Emprego");
+                System.out.println("6 - Voltar");
                 int opcaoEmpresa = sc.nextInt();
 
                 switch (opcaoEmpresa) {
@@ -127,7 +128,6 @@ public class Main {
                         break;
 
                     case 3:
-
                         Empresa empresaSelecionada = empresa.escolherEmpresaParaPublicarVaga();
                         empresa.publicarVaga(empresaSelecionada);
 
@@ -138,6 +138,15 @@ public class Main {
                         break;
 
                     case 5:
+                        Empresa empresaSelected = empresa.escolherEmpresaParaEditarVaga();
+                        empresaSelected.visualizarVagasPorEmpresaSelecionada(empresaSelected);
+                        System.out.println("Digite o Índice da Vaga Selecionada:");
+                        int vagaSelected = sc.nextInt();
+                        Vaga vagaSelecionada = empresaSelected.selecionarVagaPorIndice(empresaSelected,vagaSelected);
+
+                        break;
+
+                    case 6:
 
                         System.out.println("Voltando");
                         break;
