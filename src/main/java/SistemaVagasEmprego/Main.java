@@ -28,7 +28,8 @@ public class Main {
                 System.out.println("3 - Se Cadastrar como Candidato");
                 System.out.println("4 - Visualizar Candidatos Cadastrados");
                 System.out.println("5 - Editar Candidato Cadastrado");
-                System.out.println("6 - Voltar");
+                System.out.println("6 - Excluir Candidato Cadastrado");
+                System.out.println("7 - Voltar");
                 int opcaoCandidato = sc.nextInt();
 
                 switch (opcaoCandidato){
@@ -96,13 +97,35 @@ public class Main {
                         }
                         break;
                     case 6:
+                        if (!candidato.visualizarCandidatosCadastradosSistema()) {
+                            System.out.println("Não há candidatos cadastrados!");
+                            break; // Sai do case se não houver candidatos
+                        }
+
+                        System.out.println("1 - Excluir Cadastro de Candidato || 2 - Voltar...");
+                        int opcaoCandidatoParaExcluir = sc.nextInt();
+                        sc.nextLine(); // Consumir a nova linha pendente
+
+
+                        if (opcaoCandidatoParaExcluir == 1) {
+                            System.out.print("Informe o índice do candidato que deseja excluir: ");
+                            int indiceCandidato = sc.nextInt();
+                            sc.nextLine(); // Consumir a nova linha pendente
+
+                            if (indiceCandidato >= 1 && indiceCandidato <= candidato.getListaCandidatosCadastrados().size()) {
+                                candidato.excluirCandidatoPorIndice(indiceCandidato - 1); // Subtrair 1 para ajustar o índice
+                            } else {
+                                System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+                            }
+                        }
+                        break;
+                    case 7:
                         System.out.println("Voltando..");
                         break;
                     default:
 
                         System.out.println("Opcao Invalida");
                 }
-
 
             } else if (opcaoMenu==2) {
 
@@ -112,7 +135,9 @@ public class Main {
                 System.out.println("3 - Publicar Vaga");
                 System.out.println("4 - Visualizar Empresas Cadastradas");
                 System.out.println("5 - Edição de Vagas de Emprego");
-                System.out.println("6 - Voltar");
+                System.out.println("6 - Exclusão de Vagas de Emprego");
+                System.out.println("7 - Exclusão de Empresas");
+                System.out.println("8 - Voltar");
                 int opcaoEmpresa = sc.nextInt();
 
                 switch (opcaoEmpresa) {
@@ -160,15 +185,48 @@ public class Main {
                         System.out.println("Digite o Índice da Vaga Selecionada:");
                         int vagaSelected = sc.nextInt();
                         sc.nextLine();
-                        Vaga vagaSelecionada = empresaSelected.selecionarVagaPorIndice(empresaSelected,vagaSelected);
-                        empresa.editarVagaPorIndice(empresaSelected,vagaSelected);
+                        //Vaga vagaSelecionada = empresaSelected.selecionarVagaPorIndice(empresaSelected,vagaSelected);
+                        empresa.editarVagaPorIndice(empresaSelected,vagaSelected-1);
                         break;
 
                     case 6:
+                        if (empresa.getVagasPublicadas().isEmpty()) {
+                            System.out.println("Não há vagas disponíveis para exclusão.");
+                        } else {
+                            System.out.println("Vagas disponíveis para exclusão:");
+                            candidato.visualizarVagas(empresa.getVagasPublicadas());
+                            System.out.print("Informe o índice da vaga que deseja excluir: ");
+                            int indiceVaga = sc.nextInt();
+                            sc.nextLine(); // Consumir a nova linha pendente
 
-                        System.out.println("Voltando");
+                            if (indiceVaga >= 1 && indiceVaga <= empresa.getVagasPublicadas().size()) {
+                                empresa.excluirVagaPorIndice(indiceVaga - 1); // Subtrair 1 para ajustar o índice
+                            } else {
+                                System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+                            }
+                        }
                         break;
 
+                    case 7:
+                        if (empresa.getListaEmpresas().isEmpty()) {
+                            System.out.println("Não há empresas cadastradas para exclusão.");
+                        } else {
+                            System.out.println("Empresas cadastradas:");
+                            empresa.visualizarEmpresasCadastradas();
+                            System.out.print("Informe o índice da empresa que deseja excluir: ");
+                            int indiceEmpresa = sc.nextInt();
+                            sc.nextLine(); // Consumir a nova linha pendente
+
+                            if (indiceEmpresa >= 1 && indiceEmpresa <= empresa.getListaEmpresas().size()) {
+                                empresa.excluirEmpresaPorIndice(indiceEmpresa - 1); // Subtrair 1 para ajustar o índice
+                            } else {
+                                System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+                            }
+                        }
+                        break;
+                    case 8:
+                        System.out.println("Voltando");
+                        break;
                     default:
 
                         System.out.println("Opcao Invalida");

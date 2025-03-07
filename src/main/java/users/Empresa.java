@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Empresa extends Usuario {
     private String localidade;
     private List<Vaga> vagasPublicadas;
-    private List<Vaga> vagasPorEmpresa;
     private List<Empresa> listaEmpresas = new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
@@ -286,6 +285,22 @@ public class Empresa extends Usuario {
             System.out.println("EMPRESA:"+ (i+1));
             this.getListaEmpresas().get(i).exibirInformacoes();
             i++;
+        }
+    }
+    public void excluirVagaPorIndice(int indice) {
+        if (indice >= 0 && indice < vagasPublicadas.size()) {
+            Vaga vagaRemovida = vagasPublicadas.remove(indice);
+            System.out.println("Vaga removida com sucesso: " + vagaRemovida.getTitulo());
+        } else {
+            System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+        }
+    }
+    public void excluirEmpresaPorIndice(int indice) {
+        if (indice >= 0 && indice < listaEmpresas.size()) {
+            Empresa empresaRemovida = listaEmpresas.remove(indice);
+            System.out.println("Empresa removida com sucesso: " + empresaRemovida.getNome());
+        } else {
+            System.out.println("Índice inválido. Por favor, selecione um índice válido.");
         }
     }
 }

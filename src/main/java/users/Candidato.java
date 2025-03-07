@@ -242,4 +242,12 @@ public class Candidato extends Usuario {
             System.out.println("Índice inválido. Por favor, selecione um índice válido.");
         }
     }
+    public void excluirCandidatoPorIndice(int indice) {
+        if (indice >= 0 && indice < listaCandidatosCadastrados.size()) {
+            Candidato candidatoRemovido = listaCandidatosCadastrados.remove(indice);
+            System.out.println("Candidato removido com sucesso: " + candidatoRemovido.getNome());
+        } else {
+            System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+        }
+    }
 }
