@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Candidato extends Usuario {
     private String descricao;
     private String formacao;
@@ -24,7 +23,6 @@ public class Candidato extends Usuario {
     public void adicionarVagaDoCandidatoInscrito(Candidato candidatoInscrito, Vaga vagaSelecionada) {
 
         candidatoInscrito.getlistaVagasQueOCandidatoSeIncreveu().add(vagaSelecionada);
-
     }
 
     public String getDescricao() {

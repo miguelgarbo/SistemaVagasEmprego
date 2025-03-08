@@ -19,7 +19,7 @@ public class Empresa extends Usuario {
         this.listaEmpresas.add(empresa);
         System.out.println("Empresa Adicionada Com Sucesso !");
     }
-
+    
     public Empresa empresaCadastradaDefault(){
 
         Empresa empresaCadastrada = new Empresa("Samsung","comercial@samsung.com", "11 982383284", "sao paulo - sp");
