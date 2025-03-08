@@ -3,6 +3,7 @@ package users;
 import items.EStatusVaga;
 import items.Vaga;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -94,7 +95,93 @@ public class Empresa extends Usuario {
         }
     }
 
-    public Vaga publicarVaga(Empresa empresaSelecionada) {
+    public Empresa escolherEmpresaParaEditarVaga() {
+        if (listaEmpresas.isEmpty()) {
+            System.out.println("Não Há Empresas Cadastradas");
+            return null;
+        } else {
+            System.out.println("Informe o Indice da Empresa para Acessa-la: ");
+            for (int i = 0; i < listaEmpresas.size(); i++) {
+
+                Empresa empresa = listaEmpresas.get(i);
+
+                System.out.println("INDICE: " + (i + 1));
+                System.out.println("Nome Empresa: " + empresa.getNome());
+            }
+            int indiceInformado = sc.nextInt();
+
+            if (indiceInformado >= 1 && indiceInformado <= listaEmpresas.size()) {
+
+                Empresa empresaSelected = listaEmpresas.get(indiceInformado - 1);
+                System.out.println("Empresa Selecionada: " + empresaSelected.getNome());
+                return empresaSelected;
+            } else {
+                System.out.println("Esse Indice Não existe..");
+                return null;
+            }
+        }
+    }
+    public void visualizarVagasPorEmpresaSelecionada(Empresa empresaSelected){
+        if (empresaSelected != null) {
+            List<Vaga> vagasDaEmpresa = empresaSelected.getVagasPublicadas();
+            if (vagasDaEmpresa.isEmpty()) {
+                System.out.println("Nenhuma vaga publicada por esta empresa.");
+            } else {
+                System.out.println("Vagas publicadas por " + empresaSelected.getNome() + ":");
+                for (int i = 0;i < vagasDaEmpresa.size();i++) {
+                    Vaga vaga = vagasDaEmpresa.get(i);
+                    System.out.println("Índice || " + (i+1));
+                    System.out.println("- " + vaga.getTitulo() + ": " + vaga.getDescricao());
+                }
+            }
+        } else {
+            System.out.println("Empresa selecionada é inválida.");
+        }
+    }
+
+    public Vaga selecionarVagaPorIndice(Empresa empresaSelected, int indice){
+        if (empresaSelected != null) {
+            List<Vaga> vagasDaEmpresa = empresaSelected.getVagasPublicadas();
+            if (indice >= 0 && indice < vagasDaEmpresa.size()) {
+                return vagasDaEmpresa.get(indice);
+            } else {
+                System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+                return null;
+            }
+        } else {
+            System.out.println("Empresa selecionada é inválida.");
+            return null;
+        }
+    }
+
+
+    public void editarVagaPorIndice(Empresa empresaSelected, int indice) {
+        if (empresaSelected != null) {
+            List<Vaga> vagasDaEmpresa = empresaSelected.getVagasPublicadas();
+            if (indice >= 0 && indice < vagasDaEmpresa.size()) {
+                Vaga vaga = vagasDaEmpresa.get(indice);
+
+                System.out.println("Editando a vaga: " + vaga.getTitulo() + " - " + vaga.getDescricao());
+                sc.nextLine();//para desbugar.
+                System.out.print("Novo título: ");
+                String novoTitulo = sc.nextLine();
+                System.out.print("Nova descrição: ");
+                String novaDescricao = sc.nextLine();
+
+                vaga.setTitulo(novoTitulo);
+                vaga.setDescricao(novaDescricao);
+
+                System.out.println("Vaga editada com sucesso!");
+            } else {
+                System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+            }
+        } else {
+            System.out.println("Empresa selecionada é inválida.");
+        }
+    }
+
+
+    public void publicarVaga(Empresa empresaSelecionada) {
         Scanner sc = new Scanner(System.in);
         System.out.println("== Publicar Vaga ==");
 
@@ -113,7 +200,7 @@ public class Empresa extends Usuario {
 
         Vaga novaVaga = new Vaga(titulo, salario, requisitos, descricao, empresaSelecionada, EStatusVaga.ATIVA);
         adicionarVagaPublicada(novaVaga);
-        return novaVaga;
+        adicionarVagaPublicadaPorEmpresa(novaVaga,empresaSelecionada);
     }
 
     public String getLocalidade() {
@@ -136,6 +223,13 @@ public class Empresa extends Usuario {
         this.vagasPublicadas.add(vaga);
         System.out.println("Vaga Publicada Com Sucessooo!");
     }
+
+    public void adicionarVagaPublicadaPorEmpresa(Vaga vaga ,Empresa empresaNome){
+        empresaNome.vagasPublicadas.add(vaga);
+        System.out.println("Vaga Publicada Com Sucessooo!");
+    }
+
+
 
     public void selecionarCandidatoParaVaga(int indice, Vaga vagaescolhida){
 
@@ -185,7 +279,6 @@ public class Empresa extends Usuario {
     }
 
     public void visualizarEmpresasCadastradas(){
-
         int i = 0;
         for (Empresa empresa : this.getListaEmpresas()){
 
@@ -194,5 +287,20 @@ public class Empresa extends Usuario {
             i++;
         }
     }
-
+    public void excluirVagaPorIndice(int indice) {
+        if (indice >= 0 && indice < vagasPublicadas.size()) {
+            Vaga vagaRemovida = vagasPublicadas.remove(indice);
+            System.out.println("Vaga removida com sucesso: " + vagaRemovida.getTitulo());
+        } else {
+            System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+        }
+    }
+    public void excluirEmpresaPorIndice(int indice) {
+        if (indice >= 0 && indice < listaEmpresas.size()) {
+            Empresa empresaRemovida = listaEmpresas.remove(indice);
+            System.out.println("Empresa removida com sucesso: " + empresaRemovida.getNome());
+        } else {
+            System.out.println("Índice inválido. Por favor, selecione um índice válido.");
+        }
+    }
 }
